@@ -1,0 +1,18 @@
+/* App.css */
+
+/* ... your existing styles ... */
+
+@keyframes moveRoad {
+    to {
+      background-position: -1000px 0; /* Shift the image to the left */
+    }
+  }
+  
+  .road {
+    height: 100px; /* Adjust to the height of your road */
+    width: 100%; /* This will make the road span the full width of the container */
+    background-image: url('../assets/ground.png'); /* Make sure this URL points to your image */
+    background-repeat: repeat-x; /* The image will repeat along the x-axis */
+    animation: moveRoad 5s linear infinite; /* Adjust time for the speed of the road */
+  }
+  
