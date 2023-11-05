@@ -40,7 +40,8 @@ public class GameSession {
 
     public String getRandomText() {
         // Return the random text for the session
-    	paragraph = randomText.generateRandomParagraph();
+        TextGen text = new TextGen();
+    	paragraph = text.generateRandomParagraph();
         return paragraph;
     }
 }
