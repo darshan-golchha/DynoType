@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 public class TextGen {
-    private static final String CSV_FILE = "/Users/darshan/Documents/DynoType/words.csv"; // Replace with your CSV file path
+    private static final String CSV_FILE = "DynoType/words.csv"; // Replace with your CSV file path
     private static final int WORDS_IN_PARAGRAPH = 15;
     private static List<String> wordList = new ArrayList<>();
 
