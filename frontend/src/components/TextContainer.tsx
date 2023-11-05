@@ -110,6 +110,7 @@ function TextContainer(props: {
                 },
             })
             .then((response) => {
+                console.log("Prey position: ", response.data.preyPosition)
                 props.HandleSetTypeSpeed(response.data.preyPosition);
             })
             .catch((error) => {
@@ -149,6 +150,7 @@ function TextContainer(props: {
 
             timeElapsed = Date.now() - startTime;
             updateGameState();
+            userAnalysis();
         }, 1000);
 
         return () => clearInterval(interval);
@@ -201,6 +203,11 @@ function TextContainer(props: {
     }
 
     function userAnalysis() {
+
+        if (!startTime || !sessionId) {
+            // If "Initialize" hasn't been clicked or sessionId is not available, do nothing
+            return;
+        }
         axios
       .get("https://dynotype.onrender.com/userAnalysis", {
         params: {
