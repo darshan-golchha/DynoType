@@ -15,7 +15,7 @@ function TextContainer(props: {
     HandleSetTypeSpeed: (speed:number) => void;
 }) {
     let [importedText, setImportedText] = React.useState(
-        `dose sentiment betray knot stunning angel pause original snub unrest drain damn wrong digital waste mud lost direction thank seem fever dialogue miscarriage voyage password dull float gate conspiracy match joystick selection arena mosque banner tear blame run resort manner throat skeleton hand publication privacy grand fraud mature father kidnap district dawn boat week pledge suit romantic process runner movement population domination manager raw nose print diplomat exemption presentation infection technique escape shock girl addition fuel raise month owner preference`
+        `Dose sentiment betray knot stunning angel pause original snub unrest drain damn wrong digital waste mud lost direction thank seem fever dialogue miscarriage voyage password dull float gate conspiracy match joystick selection arena mosque banner tear blame run resort manner throat skeleton hand publication privacy grand fraud mature father kidnap district dawn boat week pledge suit romantic process runner movement population domination manager raw nose print diplomat exemption presentation infection technique escape shock girl addition fuel raise month owner preference`
     );
 
     //typed text
@@ -31,6 +31,7 @@ function TextContainer(props: {
     let [accuracy, setAccuracy] = React.useState(0);
 
     function keyDownHandler(event: KeyboardEvent) {
+        
         if (event.key === "Backspace") {
             if (index === 0) return;
             setText(text.slice(0, -1));
@@ -41,15 +42,20 @@ function TextContainer(props: {
             return;
         }
 
-        setText(text + event.key);
-        setIndex(index + 1);
-        if (event.key === importedText[index]) {
+
+        if (event.key === importedText[index] || (event.shiftKey && event.key.toUpperCase() === importedText[index])) {
             console.log("correct: " + event.key);
-            if (wrong > 0) setWrong(wrong + 1);
-        } else {
+            setText(text + event.key);
+            setIndex(index + 1);
+            if (wrong > 0) setWrong(wrong + 1);         
+        }
+        else {
+            if(event.key === "Shift") return;
             console.log(
                 "incorrect: " + event.key + " instead of: " + importedText[index]
             );
+            setText(text + event.key);
+            setIndex(index + 1);
             setWrong(wrong + 1);
         }
     }
@@ -98,7 +104,7 @@ function TextContainer(props: {
             .get("https://dynotype.onrender.com/updateState", {
                 params: {
                     sessionId: sessionId,
-                    timeElapsed: timeElapsed / 1000,
+                    timeElapsed: Math.floor(timeElapsed / 1000),
                     correct: typedWordCount,
                     wrong: wrongWordCount,
                 },
@@ -184,6 +190,7 @@ function TextContainer(props: {
                 // Retrieve the sessionId from the response and store it in the state
                 sessionId = response.data;
                 setSessionId(sessionId);
+                console.log("Session ID: ", sessionId);
             })
             .catch((error) => {
                 console.error("Initialization error: ", error);
@@ -198,7 +205,7 @@ function TextContainer(props: {
       .get("https://dynotype.onrender.com/userAnalysis", {
         params: {
           sessionId: sessionId, // Pass sessionId
-          timeElapsed: timeElapsed / 1000,
+          timeElapsed: Math.floor(timeElapsed / 1000),
           correct: typedWordCount,
           wrong: wrongWordCount,
         },
