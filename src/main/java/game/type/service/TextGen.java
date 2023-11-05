@@ -6,27 +6,36 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class TextGen {
-    private static final String CSV_FILE = "/Users/darshan/Documents/DynoType/words.csv"; // Replace with your CSV file path
+    private static final String CSV_URL = "https://raw.githubusercontent.com/darshan-golchha/DynoType/main/words.csv";
     private static final int WORDS_IN_PARAGRAPH = 50;
     private static List<String> wordList = new ArrayList<>();
 
     public TextGen() {
-        loadWordsFromCSV(CSV_FILE); // Load words from the CSV once
+        loadWordsFromCSV(CSV_URL); // Load words from the online CSV once
     }
 
-    public static void loadWordsFromCSV(String csvFilePath) {
+    public static void loadWordsFromCSV(String csvUrl) {
         if (!wordList.isEmpty()) {
             return; // Words are already loaded, so no need to load them again
         }
 
-        try (CSVReader reader = new CSVReader(new FileReader(csvFilePath))) {
-            String[] nextLine;
-            while ((nextLine = reader.readNext()) != null) {
-                wordList.add(nextLine[0]); // Assuming the words are in the first column
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(csvUrl).openStream()))) {
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(reader);
+            for (CSVRecord record : records) {
+                wordList.add(record.get(0)); // Assuming the words are in the first column
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
