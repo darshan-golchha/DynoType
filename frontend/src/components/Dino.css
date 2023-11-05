@@ -1,0 +1,13 @@
+.chaser {
+    transform: scale(2) translateX(-200px);
+}
+
+.pray {
+    transform: translateY(20px);
+}
+
+@keyframes prayMove {
+    to {
+        background-position: -1000px 0; /* Shift the image to the left */
+      }
+}
