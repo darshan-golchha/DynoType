@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry  registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000") // Allow requests from this origin
+                        .allowedOrigins("*") // Allow requests from this origin
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // Specify allowed HTTP methods
                         .allowCredentials(true) // Allow sending cookies from the client
                         .maxAge(3600); // Set the max age of the CORS pre-flight request

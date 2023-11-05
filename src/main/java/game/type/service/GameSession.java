@@ -29,7 +29,6 @@ public class GameSession {
     	int distance = DistanceCalculator.calculateDistance(timeElapsed, correct, wrong, player.getDistance(), player);
     	player.setDistance(distance);
     	this.gameState.updateState(player);
-    	paragraph = randomText.generateRandomParagraph();
         gameState.updateState(player);
         return gameState;
     }
@@ -41,6 +40,7 @@ public class GameSession {
 
     public String getRandomText() {
         // Return the random text for the session
+    	paragraph = randomText.generateRandomParagraph();
         return paragraph;
     }
 }
